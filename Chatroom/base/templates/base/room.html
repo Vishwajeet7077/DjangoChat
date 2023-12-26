@@ -1,0 +1,93 @@
+{% include 'main.html'%}
+
+{% block content %}
+{% include 'navbar.html'%}
+<style>
+
+    .room-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+
+    .chat-div {
+        background-color: #b5ddff;
+        border-radius: 20px;
+        padding: 20px;
+        height: 85vh;
+        margin-top: 3vh;
+    }
+
+    .user-chat {
+        background-color: aliceblue;
+        padding: 10px;
+        margin: 10px;
+        overflow: scroll;
+    }
+
+    .room-message {
+        position: absolute;
+        bottom: 0px;
+        z-index: 1;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    input {
+        height: 40px;
+        width: 70vw;
+        font-size: 20px;
+    }
+
+    .participant {
+        background-color: antiquewhite;
+        opacity: 0.6;
+        padding: 10px;
+        margin: 10px;
+        overflow: scroll;
+        border-radius: 20px;
+        margin-top: 3vh;
+        font-size: 20px;
+    }
+</style>
+
+<div class="room-container">
+    <div class="chat-div">
+        <h1>{{room.name}}</h1>
+        <p>{{room.description}}</p>
+
+        <div class="comment-wrraper">
+            <h3>Conversation</h3>
+            <hr>
+            {% for message in room_messages%}
+            <div class="user-chat">
+                {% if request.user == message.user %}
+                <a href="{% url 'delete-message' message.id %}">delete</a>
+                {% endif %}
+                <small>
+                    @{{message.user}} {{message.created|timesince}} ago
+                </small><br>
+                <p>{{message.body}}</p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="room-message">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Write your message here" />
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div class="participant">
+        <h3>Participants</h3>
+        <hr>
+        {% for user in participants %}
+        <div>
+            <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% include 'navbar.html'%}
+<style>
+    body {
+        font-size: 20px;
+        background-color: #f0f0f0;
+        /* Light gray background */
+        color: #333;
+        /* Dark gray text */
+        margin: 0;
+        padding: 0;
+    }
+
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 20px;
+        margin-top: 1vh;
+        padding: 20px;
+    }
+
+    .browser-topic,
+    .recent-activity,
+    .room-home {
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+        height: 85vh;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.95);
+        /* Light background with transparency */
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .room-feed-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .room-feed-head p {
+        font-size: 24px;
+        color: #3498DB;
+        /* Blue for the room count */
+    }
+
+    .room-feed-head button {
+        height: 50px;
+        border-radius: 10px;
+        font-size: 20px;
+        background-color: #FF6B6B;
+        /* Coral red button */
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .room-feed-head button:hover {
+        background-color: #FF4F4F;
+        /* Darker coral red on hover */
+    }
+
+    .room-feed {
+        border-radius: 10px;
+        background-color: #ffffff;
+        /* White for room feed */
+        padding: 20px;
+    }
+
+    .edit-button {
+        background-color: #4CAF50;
+        /* Pleasant green color, you can change this */
+        color: white;
+        /* Text color */
+        padding: 10px 20px;
+        /* Padding for the button */
+        font-size: 16px;
+        /* Font size */
+        border: none;
+        /* Remove border */
+        border-radius: 5px;
+        /* Add border-radius for rounded corners */
+        cursor: pointer;
+        /* Change cursor on hover */
+    }
+
+    /* Hover effect */
+    .edit-button:hover {
+        background-color: #45a049;
+        /* Darker green color on hover */
+    }
+
+    .edit-button a {
+        text-decoration: none;
+    }
+
+    @media screen and (max-width: 800px) {
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .browser-topic,
+        .room-home {
+            width: 100%;
+            max-height: none;
+            margin: 10px 0;
+        }
+
+        .recent-activity {
+            display: none;
+        }
+    }
+</style>
+
+<div>
+    <div class="home-container">
+
+        <div class="browser-topic">
+            {% include 'base/topic_component.html'%}
+        </div>
+
+        <div class="room-home">
+            <div class="room-feed-head">
+                <p>{{room_count}} rooms are available</p>
+                <button class="edit-button"><a href="{% url 'create-room' %}">Create Room</a></button>
+            </div>
+            <div class="room-feed">
+                {% include 'base/feed_component.html'%}
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            {% include 'base/acitivity_component.html' %}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

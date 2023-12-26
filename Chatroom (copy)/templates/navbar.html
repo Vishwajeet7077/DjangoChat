@@ -1,0 +1,66 @@
+<style>
+    .navbar {
+        box-shadow: 0px 5px 10px 0px #aaa;
+        width: 100%;
+        background: #fff;
+        color: #000;
+        height: 60px;
+        position: relative;
+        z-index: 1;
+        border-radius: 20px;
+    }
+
+    .navbarcontainer {
+        display: flex;
+        justify-content: space-between;
+        height: 64px;
+        align-items: center;
+    }
+
+    .menuitems {
+        order: 2;
+        display: flex;
+    }
+
+    .menuitems li {
+        list-style: none;
+        margin-left: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .navbar a {
+        color: #444;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .navbar a:hover {
+        color: #117964;
+    }
+
+    .logo {
+        order: 1;
+        font-size: 3rem;
+    }
+</style>
+
+<nav class="navbar">
+    <form method="POST" action=""></form>
+    <div class="navbarcontainer container">
+        <ul class="menuitems">
+            {% if request.user.is_authenticated %}
+            <li>Hello {{request.user}}</li>
+            {% endif %}
+            <li>{% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+                {%else %}
+                <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </li>
+            <li img=""><a href=""></a></li>
+        </ul>
+        <h1 class="logo">LOGO</h1>
+    </div>
+    </form>
+</nav>

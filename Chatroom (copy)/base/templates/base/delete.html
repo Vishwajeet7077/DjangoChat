@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .del {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 5px solid black;
+        border-radius: 30px;
+        width: 35%;
+        height: 40%;
+        margin: 20% 35%;
+    }
+    a{
+        text-decoration: none;
+    }
+    form{
+        padding: 20px;
+    }
+    input{
+       font-size: 20px;
+    }
+    .in{
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<div class="del">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{obj}}"?</p>
+        <div class="in">
+        <a href="{{request.META.HTTP_REFERER}}">Go back</a>
+        <input type="submit" value="Confirm" />
+    </div>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% block content %}
+{% for room in rooms %}
+<style>
+    .room-name{
+        color: #058b52;;
+    }
+    .topic-name{
+        color: blue;
+            }
+    .d-room{
+        color: chocolate;
+    }
+    /*" */
+</style>
+<div>
+    {% if request.user == room.host %}
+    <a class="up-room" href="{% url 'update-room' room.id %}">Edit</a>
+    <a class="d-room" href="{%url 'delete-room' room.id%}">Delete</a>
+    {% endif %}
+    <h5>
+        <a class="room-name" href="{% url 'room' room.id%}">{{room.name}}</a><br>
+        <small class="topic-name">{{room.topic.name}}</small>
+        <hr>
+    </h5>
+</div>
+
+{% endfor %}
+{% endblock content %}

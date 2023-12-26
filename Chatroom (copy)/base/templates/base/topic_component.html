@@ -1,0 +1,18 @@
+{% block content %}
+<style>
+    .bt-a {
+        color: red;
+        font-style: oblique;
+        text-decoration: darkviolet;
+    }
+</style>
+<h3>Browser Topics</h3>
+            <div>
+            <a class="bt-a" href="{% url 'home' %}">ALL</a>
+            {% for topic in topics%}
+            <div>
+                <a class="bt-a" href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+            </div>
+            {% endfor %}
+            </div>
+{% endblock content %}
